@@ -1,12 +1,13 @@
 <?php
-
 class Cars_Controller{
   function __construct() {
     require_once(__DIR__.'/../models/car.php');
     require_once(__DIR__.'/../models/fill.php');
     $car = new Car();
-    add_action( 'init', array( $car, 'taxonomy' ) );
-    add_action( 'template_include', function ($template){
+    add_action('init',function() use ($car){
+      register_taxonomy('car',array('fill'), $car->taxonomy());
+    });
+    add_action('template_include',function($template){
       global $wp;
       if ($wp->request == 'car') {
         $new_template = locate_template( array( 'archive-car.php' ) );
@@ -17,7 +18,9 @@ class Cars_Controller{
       return $template;
     });
     $fill = new Fill();
-    add_action('init',array($fill,'create_post_type'));
+    add_action('init', function () use ($fill){
+      register_post_type('fill',$fill->post_type());
+    });
     add_action("admin_init", array($fill,"admin_init"));
     add_action('save_post', array($fill,'save_details'));
     add_filter("manage_edit-fill_columns", array($fill,"edit_columns"));

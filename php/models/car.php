@@ -1,10 +1,11 @@
 <?php
 class Car {
+  private $car;
   function taxonomy() {
     $labels = array(
       'name'                       => _x( 'Cars', 'Taxonomy General Name', 'text_domain' ),
       'singular_name'              => _x( 'Car', 'Taxonomy Singular Name', 'text_domain' ),
-      'menu_name'                  => __( 'Car', 'text_domain' ),
+      'menu_name'                  => __( 'Cars', 'text_domain' ),
       'all_items'                  => __( 'All Cars', 'text_domain' ),
       'new_item_name'              => __( 'New Car Name', 'text_domain' ),
       'add_new_item'               => __( 'Add New Car', 'text_domain' ),
@@ -28,6 +29,19 @@ class Car {
       'show_in_nav_menus'          => true,
       'show_tagcloud'              => true,
     );
-    register_taxonomy( 'car', array( 'fill' ), $args );
+    return $args;
   }
+  function __construct($car=false){
+    if($car)
+      $this->car=$car;
+  }
+  function get_loop(){
+    $loop = new WP_Query(array(
+      'post_type' => 'fill',
+      'posts_per_page' => 100,
+      'car' => $this->car )
+    );
+    return $loop;
+  }
+
 }

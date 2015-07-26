@@ -1,6 +1,6 @@
 <?php
 class Fill {
-  function create_post_type() {
+  function post_type() {
     $labels = array(
         'name' => 'Fills',
         'singular_name' => 'Fill',
@@ -37,7 +37,7 @@ class Fill {
       'supports' => array('author','revisions','title'),
       'taxonomies' => array('car')
     );
-    register_post_type('fill',$args);
+    return $args;
   }
   function admin_init(){
     add_meta_box("fill_meta", "Fill Details", array($this,"meta_fill"), "fill", "normal", "high");
@@ -88,5 +88,31 @@ class Fill {
     );
 
     return $columns;
+  }
+  function get_meta($key){
+    $meta = get_post_meta(get_the_ID());
+    if($meta["$key"])
+      return $meta["$key"][0];
+  }
+  function get_litres(){
+    return $this->get_meta('litres');
+  }
+  function get_kilometres(){
+    return $this->get_meta('kilometres');
+  }
+  function get_dollars(){
+    return $this->get_meta('dollars');
+  }
+  function get_dollars_per_litre(){
+    return $this->get_meta('dollars')/$this->get_meta('litres');
+  }
+  function get_litres_per_hundred_km(){
+    return $this->get_meta('litres')/$this->get_meta('kilometres')*100;
+  }
+  function get_km_per_litre(){
+    return $this->get_meta('kilometres')/$this->get_meta('litres');
+  }
+  function get_dollars_per_hundred_km(){
+    return $this->get_dollars_per_litre() * $this->get_litres_per_hundred_km();
   }
 }

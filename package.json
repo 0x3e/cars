@@ -5,21 +5,12 @@
   "author": "0x3e",
   "scripts": {
     "test": "cake test",
-    "php:lint": "find php -iname '*.php' -exec php -l {} \\;",
-    "postinstall": "bower install",
-    "prepublish": "coffee -o js coffee/*.coffee",
-    "prebuild:php": "npm run php:lint",
-    "build:php": "cp -r php/{cars.php,controller,models} dist/plugin/cars",
-    "predeploy": "npm build",
-    "predeploy:php": "npm run php:lint",
-    "deploy:php": "dir=~/sites/test/wp-content/plugins/cars && mkdir -p $dir && cp -r php/{cars.php,controller,models} $dir",
-    "watch:js": "watch 'npm run build:js' assets/scripts/",
-    "build:css": "stylus styles/styles.stylus > dist/main.css",
-    "watch:css": "watch 'npm run build:css' assets/styles/",
-    "build:html": "jade index.jade > dist/index.html",
-    "watch:html": "watch 'npm run build:html' assets/html",
-    "build": "npm run build:js && npm run build:css && npm run build:html",
-    "build:watch": "parallelshell 'npm run watch:js' 'npm run watch:css' 'npm run watch:html'"
+    "php:lint": "find php -iname '*.php' |xargs -n1 php -l",
+    "predeploy:plugin": "npm run php:lint",
+    "deploy:plugin": "dir=~/sites/test/wp-content/plugins/cars && mkdir -p $dir && rsync --delete -vrc php/ $dir",
+    "predeploy:theme": "grunt",
+    "deploy:theme": "dir=~/sites/test/wp-content/themes/min && mkdir -p $dir && rsync --delete -vrc dist/theme/min/ $dir",
+    "deploy": "npm run deploy:plugin && npm run deploy:theme"
   },
   "main": "js/main.js",
   "repository": {
@@ -29,8 +20,7 @@
   "bugs": {
     "url": "https://github.com/0x3e/cars/issues"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "blanket": "*",
     "bower": "*",
@@ -45,12 +35,21 @@
     "stylus": "*",
     "uglify-js": "*",
     "watch": "*",
-    "which": "*"
+    "which": "*",
+    "grunt": "~0.4.5",
+    "grunt-contrib-coffee": "~0.13.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-jade4php": "~1.0.0",
+    "grunt-contrib-stylus": "~0.22.0",
+    "grunt-contrib-clean": "~0.6.0"
   },
   "config": {
     "blanket": {
       "pattern": "lib",
-      "data-cover-never": ["node_modules","bower_components"]
+      "data-cover-never": [
+        "node_modules",
+        "bower_components"
+      ]
     }
   }
 }
