@@ -1,0 +1,56 @@
+{
+  "name": "cars",
+  "version": "0.0.1",
+  "description": "Some cars",
+  "author": "0x3e",
+  "scripts": {
+    "test": "cake test",
+    "php:lint": "find php -iname '*.php' -exec php -l {} \\;",
+    "postinstall": "bower install",
+    "prepublish": "coffee -o js coffee/*.coffee",
+    "prebuild:php": "npm run php:lint",
+    "build:php": "cp -r php/{cars.php,controller,models} dist/plugin/cars",
+    "predeploy": "npm build",
+    "predeploy:php": "npm run php:lint",
+    "deploy:php": "dir=~/sites/test/wp-content/plugins/cars && mkdir -p $dir && cp -r php/{cars.php,controller,models} $dir",
+    "watch:js": "watch 'npm run build:js' assets/scripts/",
+    "build:css": "stylus styles/styles.stylus > dist/main.css",
+    "watch:css": "watch 'npm run build:css' assets/styles/",
+    "build:html": "jade index.jade > dist/index.html",
+    "watch:html": "watch 'npm run build:html' assets/html",
+    "build": "npm run build:js && npm run build:css && npm run build:html",
+    "build:watch": "parallelshell 'npm run watch:js' 'npm run watch:css' 'npm run watch:html'"
+  },
+  "main": "js/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0x3e/cars"
+  },
+  "bugs": {
+    "url": "https://github.com/0x3e/cars/issues"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "blanket": "*",
+    "bower": "*",
+    "chai": "*",
+    "coffee-script": "*",
+    "csslint": "*",
+    "jade": "*",
+    "jade-php": "*",
+    "mime": "*",
+    "mocha": "*",
+    "parallelshell": "*",
+    "stylus": "*",
+    "uglify-js": "*",
+    "watch": "*",
+    "which": "*"
+  },
+  "config": {
+    "blanket": {
+      "pattern": "lib",
+      "data-cover-never": ["node_modules","bower_components"]
+    }
+  }
+}

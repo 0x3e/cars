@@ -1,0 +1,26 @@
+{
+  "name": "cars",
+  "version": "0.0.1",
+  "homepage": "https://github.com/0x3e/cars",
+  "authors": [
+    "0x3e <01@0x3e.com>"
+  ],
+  "description": "Some cars",
+  "main": "js/main.js",
+  "keywords": [
+    "Random"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "test_browser"
+  ],
+  "dependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "blanket": "git@github.com:alex-seville/blanket#master"
+  }
+}

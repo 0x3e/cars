@@ -1,0 +1,15 @@
+logs
+*.log
+pids
+*.pid
+*.seed
+lib-cov
+coverage*
+.grunt
+node_modules
+test_browser
+bower_components
+js_out
+wordpress
+wordpresses
+dist
