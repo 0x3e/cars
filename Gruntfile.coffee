@@ -2,36 +2,53 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: '<json:package.json>'
     clean: [
-      "dist/theme/min"
-      "dist/plugin/cars"
+      'dist'
+      'wordpress/wp-content/plugins/hello.php'
       'wordpress/wp-content/plugins/car'
-      'wordpress/wp-content/themes/min'
+      'wordpress/wp-content/themes'
+      'wordpress/wp-config.php'
     ]
     coffee:
-      lib:
-        files:
-          'js_out/*.js': 'coffee/*.coffee'
-    copy:
-      plugin_dist:
-        src: 'php'
-        dest: 'dist/plugin/cars'
-      plugin:
-        src: 'dist/plugin/cars'
-        dest: 'wordpress/wp-content/plugins/car'
-      theme:
-        src: 'dist/theme/min'
-        dest: 'wordpress/wp-content/themes/min'
+      glob_to_multiple:
+        expand: true
+        flatten: true
+        cwd: 'coffee'
+        src: ['*.coffee']
+        dest: 'dist/js'
+        ext: '.js'
     jade4php:
       compile:
         expand: true
         cwd: 'jade/'
-        src: ['*.jade']
+        src: ['*.jade','!layout*']
         dest: 'dist/theme/min'
         ext: '.php'
     stylus:
       compile:
         files:
-          'dist/theme/min/styles.css': ['stylus/*.styl']
+          'dist/theme/min/style.css': ['stylus/*.styl']
+    copy:
+      plugin_dist:
+        expand: true
+        cwd: 'php'
+        src: ['**']
+        dest: 'dist/plugin/cars'
+      plugin:
+        expand: true
+        cwd: 'dist/plugin/cars'
+        src: ['**']
+        dest: 'wordpress/wp-content/plugins/cars'
+      theme:
+        expand: true
+        cwd: 'dist/theme/min'
+        src: ['**']
+        dest: 'wordpress/wp-content/themes/min'
+      wp_config:
+        src: 'local/wp-config.php'
+        dest: 'wordpress/wp-config.php'
+      htaccess:
+        src: 'local/.htaccess'
+        dest: 'wordpress/.htaccess'
     watch:
       files: [
         'Gruntfile.coffee'
@@ -47,6 +64,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-composer'
 
   grunt.registerTask 'default', [
+    'composer:install'
     'clean'
     'coffee'
     'jade4php'

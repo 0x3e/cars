@@ -4,6 +4,7 @@ block content
     $car = new Car(get_query_var('car'));
     $loop = $car->get_loop();
     $fill = new Fill();
+    $fmt=function($f){return sprintf("%.2f",$f);}
   table
     tr
       th date
@@ -18,12 +19,12 @@ block content
       if($loop->have_posts()): while($loop->have_posts()): $loop->the_post();
     tr 
       td!= php('get_the_date()')
-      td!= php('sprintf("%.2f",$fill->get_litres())')
-      td!= php('sprintf("%.2f",$fill->get_kilometres())')
-      td!= php('sprintf("%.2f",$fill->get_dollars())')
-      td!= php('sprintf("%.2f",$fill->get_dollars_per_litre())')
-      td!= php('sprintf("%.2f",$fill->get_litres_per_hundred_km())')
-      td!= php('sprintf("%.2f",$fill->get_km_per_litre())')
-      td!= php('sprintf("%.2f",$fill->get_dollars_per_hundred_km())')
+      td!= php('$fmt($fill->get_litres())')
+      td!= php('$fmt($fill->get_kilometres())')
+      td!= php('$fmt($fill->get_dollars())')
+      td!= php('$fmt($fill->get_dollars_per_litre())')
+      td!= php('$fmt($fill->get_litres_per_hundred_km())')
+      td!= php('$fmt($fill->get_km_per_litre())')
+      td!= php('$fmt($fill->get_dollars_per_hundred_km())')
     :php
       endwhile; endif;
