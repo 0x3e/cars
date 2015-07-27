@@ -1,10 +1,26 @@
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: '<json:package.json>'
+    clean: [
+      "dist/theme/min"
+      "dist/plugin/cars"
+      'wordpress/wp-content/plugins/car'
+      'wordpress/wp-content/themes/min'
+    ]
     coffee:
       lib:
         files:
           'js_out/*.js': 'coffee/*.coffee'
+    copy:
+      plugin_dist:
+        src: 'php'
+        dest: 'dist/plugin/cars'
+      plugin:
+        src: 'dist/plugin/cars'
+        dest: 'wordpress/wp-content/plugins/car'
+      theme:
+        src: 'dist/theme/min'
+        dest: 'wordpress/wp-content/themes/min'
     jade4php:
       compile:
         expand: true
@@ -16,7 +32,6 @@ module.exports = (grunt) ->
       compile:
         files:
           'dist/theme/min/styles.css': ['stylus/*.styl']
-    clean: ["dist/theme/min"]
     watch:
       files: [
         'Gruntfile.coffee'
@@ -28,5 +43,13 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-jade4php'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-contrib-clean'
+  grunt.loadNpmTasks 'grunt-contrib-copy'
+  grunt.loadNpmTasks 'grunt-composer'
 
-  grunt.registerTask 'default', ['clean','coffee','jade4php','stylus']
+  grunt.registerTask 'default', [
+    'clean'
+    'coffee'
+    'jade4php'
+    'stylus'
+    'copy'
+  ]

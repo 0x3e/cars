@@ -1,0 +1,25 @@
+{
+  "name": "0x3e/cars",
+  "description": "some cars",
+  "repositories":[
+    {
+      "type":"composer",
+      "url":"http://wpackagist.org"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "johnpbloch/wordpress":"*",
+    "wpackagist-plugin/disable-wordpress-updates":"*",
+    "wpackagist-plugin/p3-profiler":"*",
+    "wpackagist-plugin/query-monitor":"*",
+    "wpackagist-plugin/root-relative-urls":"*"
+  },
+  "extra": {
+    "wordpress-install-dir": "wordpress/",
+    "installer-paths": {
+       "wordpress/wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+       "wordpress/wp-content/themes/{$name}/": ["type:wordpress-theme"]
+     }
+  }
+}
