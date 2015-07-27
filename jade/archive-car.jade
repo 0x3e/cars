@@ -1,0 +1,7 @@
+extends jade/layout
+block content
+  pre
+    h2 Archive Car
+    :php
+      $args=get_terms('car');
+      print_r($args);

@@ -1,0 +1,9 @@
+
+extends jade/layout
+block content
+  pre
+    h2 Single Fill
+    :php
+      the_post();
+      the_title( '<h3>', '</h3>' );
+      print_r(get_post_meta(get_the_ID()));

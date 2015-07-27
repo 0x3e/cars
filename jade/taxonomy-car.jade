@@ -5,6 +5,7 @@ block content
     $loop = $car->get_loop();
     $fill = new Fill();
     $fmt=function($f){return sprintf("%.2f",$f);}
+  h2!= php('"Car ".get_query_var("car")')
   table
     tr
       th date
