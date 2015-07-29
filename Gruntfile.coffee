@@ -27,6 +27,9 @@ module.exports = (grunt) ->
       compile:
         files:
           'dist/theme/min/style.css': ['stylus/*.styl']
+    phpunit:
+      classes:
+        dir: 'test/'
     copy:
       plugin_dist:
         expand: true
@@ -62,6 +65,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-composer'
+  grunt.loadNpmTasks 'grunt-phpunit'
 
   grunt.registerTask 'default', [
     'composer:install'
@@ -70,4 +74,5 @@ module.exports = (grunt) ->
     'jade4php'
     'stylus'
     'copy'
+    'phpunit'
   ]

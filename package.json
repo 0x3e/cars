@@ -44,7 +44,8 @@
     "stylus": "*",
     "uglify-js": "*",
     "watch": "*",
-    "which": "*"
+    "which": "*",
+    "grunt-phpunit": "~0.3.6"
   },
   "config": {
     "blanket": {
