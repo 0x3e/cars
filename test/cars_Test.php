@@ -12,6 +12,5 @@ class CarsTest extends \PHPUnit_Framework_TestCase
       ->getMock();
     $cars = new Cars();
     $loop = $cars->get_loop('test');
-    print_r($loop);
   }
 }
