@@ -1,6 +1,6 @@
 <?php
+namespace Øx3e;
 class Car {
-  private $car;
   function taxonomy() {
     $labels = array(
       'name'                       => _x( 'Cars', 'Taxonomy General Name', 'text_domain' ),
@@ -31,17 +31,4 @@ class Car {
     );
     return $args;
   }
-  function __construct($car=false){
-    if($car)
-      $this->car=$car;
-  }
-  function get_loop(){
-    $loop = new WP_Query(array(
-      'post_type' => 'fill',
-      'posts_per_page' => 100,
-      'car' => $this->car )
-    );
-    return $loop;
-  }
-
 }

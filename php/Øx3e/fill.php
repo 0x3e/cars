@@ -1,5 +1,7 @@
 <?php
+namespace Øx3e;
 class Fill {
+  public $formater;
   function post_type() {
     $labels = array(
         'name' => 'Fills',

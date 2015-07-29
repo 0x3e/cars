@@ -7,35 +7,10 @@ Version:     1.0
 Author:      0x3e
 */
 if(php_sapi_name()!='cli') defined( 'ABSPATH' ) or die( 'No!' );
-class Cars {
-  function __construct() {
-    require_once('car.php');
-    require_once('fill.php');
-    $car = new Car();
-    add_action('init',function() use ($car){
-      register_taxonomy('car',array('fill'), $car->taxonomy());
-    });
-    add_action('template_include',function($template){
-      global $wp;
-      if ($wp->request == 'car') {
-        $new_template = locate_template( array( 'archive-car.php' ) );
-        if ( '' != $new_template ) {
-          return $new_template ;
-        }
-      }
-      return $template;
-    });
-    $fill = new Fill();
-    add_action('init', function () use ($fill){
-      register_post_type('fill',$fill->post_type());
-    });
-    add_action("admin_init", array($fill,"admin_init"));
-    add_action('save_post', array($fill,'save_details'));
-    add_filter("manage_edit-fill_columns", array($fill,"edit_columns"));
-    add_action("manage_fill_posts_custom_column", array($fill,"custom_columns"));
-  }
-}
-$cars = new Cars();
+require_once 'Øx3e/cars.php';
+$cars = (new Øx3e\Cars())->wordpress_setup();
+require_once 'Øx3e/fills.php';
+$fills = (new Øx3e\Fills())->wordpress_setup();
 /*
 create or replace view fills as 
 select p.id, t.name as car, p.post_date,
