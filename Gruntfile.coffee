@@ -29,6 +29,8 @@ module.exports = (grunt) ->
         files:
           'dist/themes/min/style.css': ['stylus/*.styl']
     phpunit:
+      options:
+        stderr: true
       plugin:
         dir: 'test/cars_Test.php'
       taxonomy:

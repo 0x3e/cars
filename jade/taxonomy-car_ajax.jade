@@ -1,16 +1,17 @@
-:php
-  namespace Øx3e;
-  $loop = $cars->get_loop(get_query_var('car'));
-  $f = $fills->get_formater();
-  $fmt=function($f){return sprintf("%.02f",round($f,2));};
-  $out=array();
-  $i=0;
-  if($loop->have_posts()){ while($loop->have_posts()){ $loop->the_post();
-    $out[$i]['id']=get_the_ID();
-    $out[$i]['date']=get_the_date();
-    $out[$i]['l']=$f->get_litres();
-    $out[$i]['km']=$f->get_kilometres();
-    $out[$i]['d']=$f->get_dollars();
-    $i++;
-  }}
-  echo json_encode($out);
+extends jade/layout_ajax.jade
+block content
+  :php
+    $loop = $cars->get_loop(get_query_var('car'));
+    $f = $fills->get_formater();
+    $fmt=function($f){return sprintf("%.02f",round($f,2));};
+    $out=array();
+    $i=0;
+    if($loop->have_posts()){ while($loop->have_posts()){ $loop->the_post();
+      $out[$i]['id']=get_the_ID();
+      $out[$i]['date']=get_the_date();
+      $out[$i]['l']=$f->get_litres();
+      $out[$i]['km']=$f->get_kilometres();
+      $out[$i]['d']=$f->get_dollars();
+      $i++;
+    }}
+    echo json_encode($out);
