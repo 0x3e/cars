@@ -13,7 +13,8 @@
     "wpackagist-plugin/disable-wordpress-updates":"*",
     "wpackagist-plugin/p3-profiler":"*",
     "wpackagist-plugin/query-monitor":"*",
-    "wpackagist-plugin/root-relative-urls":"*"
+    "wpackagist-plugin/root-relative-urls":"*",
+    "wp-cli/wp-cli": "0.19.*"
   },
   "require-dev": {
     "phpunit/phpunit": "4.7.*"

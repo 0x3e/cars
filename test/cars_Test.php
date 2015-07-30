@@ -1,7 +1,7 @@
 <?php
 namespace Øx3e;
 include_once 'test/empty_wp_functions.php';
-include 'dist/plugin/cars/cars.php';
+include 'dist/plugins/cars/cars.php';
 class CarsTest extends \PHPUnit_Framework_TestCase
 {
   public function testLoop()
@@ -12,5 +12,6 @@ class CarsTest extends \PHPUnit_Framework_TestCase
       ->getMock();
     $cars = new Cars();
     $loop = $cars->get_loop('test');
+    $this->assertTrue(get_class($loop)=='WP_Query');
   }
 }

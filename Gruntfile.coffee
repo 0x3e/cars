@@ -1,13 +1,14 @@
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: '<json:package.json>'
-    clean: [
-      'dist'
-      'wordpress/wp-content/plugins/hello.php'
-      'wordpress/wp-content/plugins/car'
-      'wordpress/wp-content/themes'
-      'wordpress/wp-config.php'
-    ]
+    clean:
+      dist: 'dist'
+      plugin: 'dist/plugins/cars'
+      theme: 'dist/themes/min'
+      hello: 'wordpress/wp-content/plugins/hello.php'
+      wp_plugin: 'wordpress/wp-content/plugins/car'
+      wp_theme: 'wordpress/wp-content/themes/min'
+      wp_config: 'wordpress/wp-config.php'
     coffee:
       glob_to_multiple:
         expand: true
@@ -21,29 +22,31 @@ module.exports = (grunt) ->
         expand: true
         cwd: 'jade/'
         src: ['*.jade','!layout*']
-        dest: 'dist/theme/min'
+        dest: 'dist/themes/min'
         ext: '.php'
     stylus:
       compile:
         files:
-          'dist/theme/min/style.css': ['stylus/*.styl']
+          'dist/themes/min/style.css': ['stylus/*.styl']
     phpunit:
-      classes:
-        dir: 'test/'
+      plugin:
+        dir: 'test/cars_Test.php'
+      taxonomy:
+        dir: 'test/taxonomy-car_Test.php'
     copy:
-      plugin_dist:
+      plugin:
         expand: true
         cwd: 'php'
         src: ['**']
-        dest: 'dist/plugin/cars'
-      plugin:
+        dest: 'dist/plugins/cars'
+      wp_plugin:
         expand: true
-        cwd: 'dist/plugin/cars'
+        cwd: 'dist/plugins/cars'
         src: ['**']
         dest: 'wordpress/wp-content/plugins/cars'
-      theme:
+      wp_theme:
         expand: true
-        cwd: 'dist/theme/min'
+        cwd: 'dist/themes/min'
         src: ['**']
         dest: 'wordpress/wp-content/themes/min'
       wp_config:
@@ -52,11 +55,19 @@ module.exports = (grunt) ->
       htaccess:
         src: 'local/.htaccess'
         dest: 'wordpress/.htaccess'
+    wp_plugins:
+      blog:
+        options:
+          wordpress_path: 'wordpress'
+          wp_cli_path: 'vendor/bin/'
+
     watch:
-      files: [
-        'Gruntfile.coffee'
-      ]
-      tasks: 'default'
+      grunt:
+        files: 'Gruntfile.coffee'
+        tasks: 'default'
+      cars:
+        files: ['php/Øx3e/car*.php','test/car*Test.php']
+        tasks: ['clean:plugin','copy:plugin','phpunit']
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
@@ -66,6 +77,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-composer'
   grunt.loadNpmTasks 'grunt-phpunit'
+  grunt.loadNpmTasks 'grunt-wp-plugins'
 
   grunt.registerTask 'default', [
     'composer:install'
@@ -75,4 +87,9 @@ module.exports = (grunt) ->
     'stylus'
     'copy'
     'phpunit'
+  ]
+  grunt.registerTask 'plugin', [
+    'clean:plugin'
+    'copy:plugin'
+    'phpunit:plugin'
   ]

@@ -25,6 +25,6 @@ class TaxonomyCarTest extends \PHPUnit_Framework_TestCase
     $fill=new Mock_Fill();
     $fills->method('get_formater')->willReturn($fill);
     $this->expectOutputRegex('/4.00.*5.00.*6.00/');
-    include 'dist/theme/min/taxonomy-car.php';
+    include 'dist/themes/min/taxonomy-car.php';
   }
 }
