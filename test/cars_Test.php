@@ -1,6 +1,6 @@
 <?php
 namespace Øx3e;
-include_once 'test/empty_wp_functions.php';
+include_once 'test/mocks/mock_wp_functions.php';
 include 'dist/plugins/cars/cars.php';
 class CarsTest extends \PHPUnit_Framework_TestCase
 {

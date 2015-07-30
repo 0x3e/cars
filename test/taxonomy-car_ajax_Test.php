@@ -3,9 +3,9 @@ namespace Øx3e;
 include_once 'test/mocks/mock_wp_functions.php';
 include_once 'test/mocks/fill.php';
 if(!function_exists('Øx3e\get_the_date')){
-  function get_the_date(){return "2015-07-30";}
 }
-class TaxonomyCarTest extends \PHPUnit_Framework_TestCase
+function get_the_ID(){return 1;}
+class TaxonomyCarAjaxTest extends \PHPUnit_Framework_TestCase
 {
   public function testOutput()
   {
@@ -23,7 +23,8 @@ class TaxonomyCarTest extends \PHPUnit_Framework_TestCase
       ->getMock();
     $fill=new Mock_Fill();
     $fills->method('get_formater')->willReturn($fill);
-    $this->expectOutputRegex('/4.00.*5.00.*6.00/');
-    include 'dist/themes/min/taxonomy-car.php';
+    get_query_var('car');
+    $this->expectOutputRegex('/"id":1,"date":"2015-07-30","l":1,"km":2,"d":3/');
+    include 'dist/themes/min/taxonomy-car_ajax.php';
   }
 }

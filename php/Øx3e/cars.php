@@ -8,8 +8,17 @@ class Cars {
       register_taxonomy('car',array('fill'), $car->taxonomy());
     });
     add_action('template_include',function($template){
-      global $wp;
-      if ($wp->request == 'car') {
+      global $wp,$wp_query;
+      if($wp_query->query_vars['taxonomy']=='car'
+        && isset($_SERVER['HTTP_X_REQUESTED_WITH'])
+        && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' 
+        ){
+        $new_template = locate_template( array( 'taxonomy-car_ajax.php' ) );
+        if ( '' != $new_template ) {
+          return $new_template ;
+        }
+      }
+      elseif ($wp->request == 'car') {
         $new_template = locate_template( array( 'archive-car.php' ) );
         if ( '' != $new_template ) {
           return $new_template ;

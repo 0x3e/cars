@@ -33,6 +33,8 @@ module.exports = (grunt) ->
         dir: 'test/cars_Test.php'
       taxonomy:
         dir: 'test/taxonomy-car_Test.php'
+      all:
+        dir: 'test'
     copy:
       plugin:
         expand: true
@@ -65,9 +67,12 @@ module.exports = (grunt) ->
       grunt:
         files: 'Gruntfile.coffee'
         tasks: 'default'
-      cars:
-        files: ['php/Øx3e/car*.php','test/car*Test.php']
+      plugin:
+        files: ['php/cars.php','php/Øx3e/car*.php','test/car*Test.php']
         tasks: ['clean:plugin','copy:plugin','phpunit']
+      wp_plugin:
+        files: ['php/Øx3e/*']
+        tasks: ['default']
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
@@ -86,7 +91,7 @@ module.exports = (grunt) ->
     'jade4php'
     'stylus'
     'copy'
-    'phpunit'
+    'phpunit:all'
   ]
   grunt.registerTask 'plugin', [
     'clean:plugin'
