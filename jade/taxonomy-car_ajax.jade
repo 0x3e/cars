@@ -2,7 +2,7 @@ extends jade/layout_ajax.jade
 block content
   :php
     $loop = $cars->get_loop(get_query_var('car'));
-    $f = $fills->get_formater();
+    $f = $cars->fills->get_formater();
     $fmt=function($f){return sprintf("%.02f",round($f,2));};
     $out=array();
     $i=0;

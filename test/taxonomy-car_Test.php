@@ -18,11 +18,11 @@ class TaxonomyCarTest extends \PHPUnit_Framework_TestCase
       ->setMethods(array('get_loop'))
       ->getMock();
     $cars->method('get_loop')->willReturn($loop);
-    $fills = $this->getMockBuilder('fills')
+    $cars->fills = $this->getMockBuilder('fills')
       ->setMethods(array('get_formater'))
       ->getMock();
     $fill=new Mock_Fill();
-    $fills->method('get_formater')->willReturn($fill);
+    $cars->fills->method('get_formater')->willReturn($fill);
     $this->expectOutputRegex('/4.00.*5.00.*6.00/');
     include 'dist/themes/min/taxonomy-car.php';
   }

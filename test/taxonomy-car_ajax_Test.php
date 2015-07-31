@@ -18,11 +18,11 @@ class TaxonomyCarAjaxTest extends \PHPUnit_Framework_TestCase
       ->setMethods(array('get_loop'))
       ->getMock();
     $cars->method('get_loop')->willReturn($loop);
-    $fills = $this->getMockBuilder('fills')
+    $cars->fills = $this->getMockBuilder('fills')
       ->setMethods(array('get_formater'))
       ->getMock();
     $fill=new Mock_Fill();
-    $fills->method('get_formater')->willReturn($fill);
+    $cars->fills->method('get_formater')->willReturn($fill);
     get_query_var('car');
     $this->expectOutputRegex('/"id":1,"date":"2015-07-30","l":1,"km":2,"d":3/');
     include 'dist/themes/min/taxonomy-car_ajax.php';

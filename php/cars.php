@@ -10,7 +10,7 @@ if(php_sapi_name()!='cli') defined( 'ABSPATH' ) or die( 'No!' );
 require_once 'Øx3e/cars.php';
 $cars = (new Øx3e\Cars())->wordpress_setup();
 require_once 'Øx3e/fills.php';
-$fills = (new Øx3e\Fills())->wordpress_setup();
+$cars->fills = (new Øx3e\Fills())->wordpress_setup();
 /*
 create or replace view fills as 
 select p.id, t.name as car, p.post_date,
