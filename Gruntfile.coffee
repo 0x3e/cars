@@ -20,10 +20,22 @@ module.exports = (grunt) ->
     jade4php:
       compile:
         expand: true
-        cwd: 'jade/'
+        cwd: 'jade4php'
         src: ['*.jade','!layout*']
         dest: 'dist/themes/min'
         ext: '.php'
+    jade:
+      compile:
+        options:
+          client: false
+          pretty: true
+        files: [
+          expand: true
+          cwd: 'jade'
+          src: ['*.jade','!layout*']
+          dest: 'dist/themes/min'
+          ext: '.html'
+        ]
     stylus:
       compile:
         files:
@@ -64,6 +76,9 @@ module.exports = (grunt) ->
         options:
           wordpress_path: 'wordpress'
           wp_cli_path: 'vendor/bin/'
+    bower:
+      dev:
+        dest: 'dist/js'
 
     watch:
       grunt:
@@ -78,6 +93,7 @@ module.exports = (grunt) ->
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-contrib-jade'
   grunt.loadNpmTasks 'grunt-jade4php'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-contrib-clean'
@@ -85,12 +101,14 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-composer'
   grunt.loadNpmTasks 'grunt-phpunit'
   grunt.loadNpmTasks 'grunt-wp-plugins'
+  grunt.loadNpmTasks 'grunt-bower'
 
   grunt.registerTask 'default', [
     'composer:install'
     'clean'
     'coffee'
     'jade4php'
+    'jade'
     'stylus'
     'copy'
     'phpunit:all'

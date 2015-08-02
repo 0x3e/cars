@@ -1,0 +1,19 @@
+table(class="cars")
+  tr
+    th date
+    th L
+    th km
+    th $
+    th $ per L
+    th L per 100km
+    th km per L
+    th $ per 100km
+  tr(ng-repeat="car in cars | filter:query | orderBy:date" class="car")
+    td {{car.date}}
+    td {{car.l}}
+    td {{car.km}}
+    td {{car.d}}
+    td {{(car.d/car.l).toFixed(2)}}
+    td {{(car.l/car.km*100).toFixed(2)}}
+    td {{(car.km/car.l).toFixed(2)}}
+    td {{((car.l/car.km*100)*(car.d/car.l)).toFixed(2)}}

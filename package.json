@@ -3,16 +3,6 @@
   "version": "0.0.1",
   "description": "Some cars",
   "author": "0x3e",
-  "scripts": {
-    "test": "cake test",
-    "php:lint": "find php -iname '*.php' |xargs -n1 php -l",
-    "predeploy:plugin": "npm run php:lint",
-    "deploy:plugin": "dir=~/sites/test/wp-content/plugins/cars && mkdir -p $dir && rsync --delete -vrc php/ $dir",
-    "predeploy:theme": "grunt",
-    "deploy:theme": "dir=~/sites/test/wp-content/themes/min && mkdir -p $dir && rsync --delete -vrc dist/theme/min/ $dir",
-    "deploy": "npm run deploy:plugin && npm run deploy:theme"
-  },
-  "main": "js/main.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/0x3e/cars"
@@ -20,7 +10,6 @@
   "bugs": {
     "url": "https://github.com/0x3e/cars/issues"
   },
-  "dependencies": {},
   "devDependencies": {
     "blanket": "*",
     "bower": "*",
@@ -46,7 +35,9 @@
     "watch": "*",
     "which": "*",
     "grunt-phpunit": "~0.3.6",
-    "grunt-wp-plugins": "0.0.2"
+    "grunt-wp-plugins": "0.0.2",
+    "grunt-bower": "~0.20.0",
+    "grunt-contrib-jade": "~0.15.0"
   },
   "config": {
     "blanket": {
