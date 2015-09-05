@@ -1,8 +1,5 @@
-CarListCtrl = ($scope, $http) ->
-  $http.get("car/excel/").success (data) ->
-    $scope.cars = data
-    return
-
+CarListCtrl = ($scope, $http, $localStorage, $sessionStorage,$timeout) ->
+  $scope.cars = $localStorage['car/excel']
   $scope.orderProp = "date"
 
 CarDetailCtrl = ($scope, $routeParams) ->
@@ -10,5 +7,5 @@ CarDetailCtrl = ($scope, $routeParams) ->
 
 angular
   .module('carsApp')
-  .controller "CarListCtrl", ["$scope","$http",CarListCtrl]
+  .controller "CarListCtrl", ["$scope","$http","$localStorage","$sessionStorage","$timeout",CarListCtrl]
   .controller "CarDetailCtrl", ["$scope","$routeParams",CarDetailCtrl]

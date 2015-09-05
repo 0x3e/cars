@@ -1,5 +1,5 @@
 angular
-  .module('carsApp', ['ngRoute'])
+  .module('carsApp', ['ngRoute','ngStorage'])
   .config [
     '$routeProvider'
     ($routeProvider) ->
